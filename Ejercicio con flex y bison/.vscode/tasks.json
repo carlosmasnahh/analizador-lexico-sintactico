@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar y ejecutar calculadora",
+      "type": "shell",
+      "command": "bison -d parser.y && flex lexer.l && gcc -o calc parser.tab.c lex.yy.c main.c -lm && calc",
+      "options": {
+        "shell": {
+          "executable": "cmd.exe",
+          "args": ["/c"]
+        }
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
