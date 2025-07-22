@@ -3,10 +3,8 @@ from tkinter import simpledialog, messagebox, scrolledtext
 from analizador_lexico import lexer, tabla_simbolos
 from analizador_sintactico import parser, reglas_gramaticales, codigo_intermedio
 from PIL import Image, ImageTk
-
 from graphviz import Digraph
-from PIL import Image, ImageTk
-import tempfile, os
+import os
 
 def imprimir_arbol(nodo, prefijo="", es_ultimo=True):
     nombre, hijos = nodo
@@ -23,10 +21,6 @@ def imprimir_arbol(nodo, prefijo="", es_ultimo=True):
     return resultado
 
 def generar_arbol_grafico(nodo):
-    import os
-    from graphviz import Digraph
-
-    # Crear grafo
     grafo = Digraph(format='png')
     contador = [0]
 
@@ -47,41 +41,25 @@ def generar_arbol_grafico(nodo):
         return idx
 
     agregar_nodo(nodo)
-
-    # Crear carpeta si no existe
     carpeta = "arboles"
     os.makedirs(carpeta, exist_ok=True)
-
-    # Guardar con nombre incremental
     numero = 1
     while os.path.exists(f"{carpeta}/arbol_{numero}.png"):
         numero += 1
-
     ruta_salida = os.path.join(carpeta, f"arbol_{numero}")
     grafo.render(ruta_salida, cleanup=True)
-
     return ruta_salida + ".png"
-
 
 def mostrar_imagen(path):
     ventana = tk.Toplevel()
     ventana.title("Árbol de Sintaxis Gráfico")
-
-
     imagen = Image.open(path)
     ancho, alto = imagen.size
-    MAX_ANCHO = 1000
-    MAX_ALTO = 800
-
+    MAX_ANCHO, MAX_ALTO = 1000, 800
     if ancho > MAX_ANCHO or alto > MAX_ALTO:
         escala = min(MAX_ANCHO / ancho, MAX_ALTO / alto)
-        nuevo_ancho = int(ancho * escala)
-        nuevo_alto = int(alto * escala)
-        imagen = imagen.resize((nuevo_ancho, nuevo_alto), Image.Resampling.LANCZOS)
-
-
+        imagen = imagen.resize((int(ancho * escala), int(alto * escala)), Image.Resampling.LANCZOS)
     foto = ImageTk.PhotoImage(imagen)
-
     etiqueta = tk.Label(ventana, image=foto)
     etiqueta.image = foto
     etiqueta.pack()
@@ -90,9 +68,36 @@ def mostrar_resultado(texto):
     ventana = tk.Toplevel()
     ventana.title("Resultado del análisis")
     ventana.geometry("650x550")
-
     area = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, font=("Courier", 10))
     area.insert(tk.END, texto)
+    area.config(state=tk.DISABLED)
+    area.pack(expand=True, fill="both")
+
+def mostrar_tabla_simbolos():
+    ventana = tk.Toplevel()
+    ventana.title("📚 Tabla de Símbolos")
+    ventana.geometry("500x400")
+    area = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, font=("Courier", 10))
+    if tabla_simbolos:
+        for simbolo, info in tabla_simbolos.items():
+            usada = info.get('usada', False)
+            linea = f"{simbolo}: tipo={info['tipo']}, tamaño={info['tamaño']} bytes, usada={usada}\n"
+            area.insert(tk.END, linea)
+    else:
+        area.insert(tk.END, "(vacía)\n")
+    area.config(state=tk.DISABLED)
+    area.pack(expand=True, fill="both")
+
+def mostrar_reglas_gramaticales():
+    ventana = tk.Toplevel()
+    ventana.title("📖 Reglas Gramaticales Usadas")
+    ventana.geometry("500x400")
+    area = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, font=("Courier", 10))
+    if reglas_gramaticales:
+        for regla in sorted(set(reglas_gramaticales)):
+            area.insert(tk.END, regla + "\n")
+    else:
+        area.insert(tk.END, "(ninguna)\n")
     area.config(state=tk.DISABLED)
     area.pack(expand=True, fill="both")
 
@@ -112,7 +117,8 @@ def analizar_entrada(codigo):
         output += "\n📚 Tabla de Símbolos:\n"
         if tabla_simbolos:
             for simbolo, info in tabla_simbolos.items():
-                output += f"{simbolo}: tipo={info['tipo']}, tamaño={info['tamaño']} bytes\n"
+                usada = info.get('usada', False)
+                output += f"{simbolo}: tipo={info['tipo']}, tamaño={info['tamaño']} bytes, usada={usada}\n"
         else:
             output += "(vacía)\n"
 
@@ -124,12 +130,11 @@ def analizar_entrada(codigo):
         for linea in codigo_intermedio:
             output += linea + "\n"
 
-        # ✅ Mostrar los resultados en ventana de texto
         mostrar_resultado(output)
-
-        # ✅ Generar imagen del árbol y mostrarla
         ruta_imagen = generar_arbol_grafico(resultado)
         mostrar_imagen(ruta_imagen)
+        mostrar_tabla_simbolos()
+        mostrar_reglas_gramaticales()
 
     except Exception as e:
         messagebox.showerror("Error de análisis", str(e))
@@ -155,9 +160,7 @@ def solicitar_codigo():
     boton = tk.Button(ventana, text="Analizar", command=analizar_y_cerrar)
     boton.pack(pady=10)
 
-# Ejecutar interfaz principal
 root = tk.Tk()
 root.withdraw()
 solicitar_codigo()
 root.mainloop()
-

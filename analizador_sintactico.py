@@ -26,26 +26,40 @@ def crear_nodo(nombre, hijos=None, tipo=None):
         return (f"{nombre}: {hijos[0]}{tipo_info}", [])
     return (nombre, hijos or [])
 
-# Declaración simple: int x;
 def p_declaracion_variable(p):
     'expresion : TIPO ID PUNTOYCOMA'
     reglas_gramaticales.append("expresion → TIPO ID ;")
-    tipo = p[1]
-    nombre = p[2]
-    tabla_simbolos[nombre] = {'tipo': tipo, 'tamaño': tipos_con_tamano[tipo]}
+
+    tipo = p[1] if isinstance(p[1], str) else p[1].value
+    nombre = p[2] if isinstance(p[2], str) else p[2].value
+
+    tabla_simbolos[nombre] = {
+        'tipo': tipo,
+        'tamaño': tipos_con_tamano[tipo],
+        'usada': False
+    }
+
     p[0] = crear_nodo('DECLARACION', [f"{tipo} {nombre}"], tipo)
 
-# Arreglo: int lista[10];
+
 def p_declaracion_arreglo(p):
     'expresion : TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA'
     reglas_gramaticales.append("expresion → TIPO ID [ NUMERO ] ;")
-    tipo = p[1]
-    nombre = p[2]
+
+    tipo = p[1] if isinstance(p[1], str) else p[1].value
+    nombre = p[2] if isinstance(p[2], str) else p[2].value
     tamaño_total = tipos_con_tamano[tipo] * p[4]
-    tabla_simbolos[nombre] = {'tipo': f'{tipo}[{p[4]}]', 'tamaño': tamaño_total}
+
+    tabla_simbolos[nombre] = {
+        'tipo': f'{tipo}[{p[4]}]',
+        'tamaño': tamaño_total,
+        'usada': False
+    }
+
     p[0] = crear_nodo('ARREGLO', [f"{tipo} {nombre}[{p[4]}]"], tipo)
 
-# Suma y resta
+
+# Suma
 def p_expresion_suma(p):
     'expresion : expresion MAS termino'
     agregar_regla(p, "expresion → expresion + termino")
@@ -53,6 +67,7 @@ def p_expresion_suma(p):
     codigo_intermedio.append(f"{temp} = {p[1][0]} + {p[3][0]}")
     p[0] = (temp, [])
 
+# Resta
 def p_expresion_resta(p):
     'expresion : expresion MENOS termino'
     agregar_regla(p, "expresion → expresion - termino")
@@ -73,10 +88,16 @@ def p_termino_numero(p):
 def p_termino_id(p):
     'termino : ID'
     reglas_gramaticales.append("termino → ID")
-    if p[1] not in tabla_simbolos:
-        raise Exception(f"[Error semántico] Variable '{p[1]}' no declarada.")
-    tipo = tabla_simbolos[p[1]]['tipo']
-    p[0] = crear_nodo('ID', [p[1]], tipo)
+
+    nombre = p[1] if isinstance(p[1], str) else p[1].value
+
+    if nombre not in tabla_simbolos:
+        raise Exception(f"[Error semántico] Variable '{nombre}' no declarada.")
+
+    tabla_simbolos[nombre]['usada'] = True
+    tipo = tabla_simbolos[nombre]['tipo']
+    p[0] = crear_nodo('ID', [nombre], tipo)
+
 
 def p_error(p):
     if p:

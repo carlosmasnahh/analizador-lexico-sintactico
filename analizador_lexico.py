@@ -32,7 +32,7 @@ def t_NUMERO(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    return t
+    return t  # devolvemos el token completo (LexToken)
 
 t_ignore = ' \t'
 

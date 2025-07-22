@@ -5,7 +5,7 @@
 
 %%
 
-[\n]        return '\n';   // ✅ Añadir esta línea si no existe
+[\n]        return '\n';   // 
 [0-9]+      { yylval = atoi(yytext); return NUM; }
 [\t ]+      ; // ignorar espacios y tabs
 "+"         return MAS;
