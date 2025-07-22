@@ -1,0 +1,587 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> inicio
+Rule 1     inicio -> lista_expresiones
+Rule 2     lista_expresiones -> lista_expresiones expresion
+Rule 3     lista_expresiones -> expresion
+Rule 4     expresion -> TIPO ID PUNTOYCOMA
+Rule 5     expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+Rule 6     expresion -> expresion MAS termino
+Rule 7     expresion -> expresion MENOS termino
+Rule 8     expresion -> ID IGUAL expresion PUNTOYCOMA
+Rule 9     expresion -> termino
+Rule 10    expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+Rule 11    expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA
+Rule 12    expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA
+Rule 13    termino -> NUMERO
+Rule 14    termino -> ID
+
+Terminals, with rules where they appear
+
+CORCHETE_DER         : 5
+CORCHETE_IZQ         : 5
+FOR                  : 10
+ID                   : 4 5 8 10 10 11 11 12 12 14
+IF                   : 12
+IGUAL                : 8 10 10 11 12
+MAS                  : 6
+MENOS                : 7
+NUMERO               : 5 10 10 10 11 12 13
+PUNTOYCOMA           : 4 5 8 10 11 12
+THEN                 : 10 11 12
+TIPO                 : 4 5
+TO                   : 10
+WHILE                : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+expresion            : 2 3 6 7 8
+inicio               : 0
+lista_expresiones    : 1 2
+termino              : 6 7 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . inicio
+    (1) inicio -> . lista_expresiones
+    (2) lista_expresiones -> . lista_expresiones expresion
+    (3) lista_expresiones -> . expresion
+    (4) expresion -> . TIPO ID PUNTOYCOMA
+    (5) expresion -> . TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+    (6) expresion -> . expresion MAS termino
+    (7) expresion -> . expresion MENOS termino
+    (8) expresion -> . ID IGUAL expresion PUNTOYCOMA
+    (9) expresion -> . termino
+    (10) expresion -> . FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+    (11) expresion -> . WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (12) expresion -> . IF ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (13) termino -> . NUMERO
+    (14) termino -> . ID
+
+    TIPO            shift and go to state 4
+    ID              shift and go to state 5
+    FOR             shift and go to state 8
+    WHILE           shift and go to state 9
+    IF              shift and go to state 10
+    NUMERO          shift and go to state 6
+
+    inicio                         shift and go to state 1
+    lista_expresiones              shift and go to state 2
+    expresion                      shift and go to state 3
+    termino                        shift and go to state 7
+
+state 1
+
+    (0) S' -> inicio .
+
+
+
+state 2
+
+    (1) inicio -> lista_expresiones .
+    (2) lista_expresiones -> lista_expresiones . expresion
+    (4) expresion -> . TIPO ID PUNTOYCOMA
+    (5) expresion -> . TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+    (6) expresion -> . expresion MAS termino
+    (7) expresion -> . expresion MENOS termino
+    (8) expresion -> . ID IGUAL expresion PUNTOYCOMA
+    (9) expresion -> . termino
+    (10) expresion -> . FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+    (11) expresion -> . WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (12) expresion -> . IF ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (13) termino -> . NUMERO
+    (14) termino -> . ID
+
+    $end            reduce using rule 1 (inicio -> lista_expresiones .)
+    TIPO            shift and go to state 4
+    ID              shift and go to state 5
+    FOR             shift and go to state 8
+    WHILE           shift and go to state 9
+    IF              shift and go to state 10
+    NUMERO          shift and go to state 6
+
+    expresion                      shift and go to state 11
+    termino                        shift and go to state 7
+
+state 3
+
+    (3) lista_expresiones -> expresion .
+    (6) expresion -> expresion . MAS termino
+    (7) expresion -> expresion . MENOS termino
+
+    TIPO            reduce using rule 3 (lista_expresiones -> expresion .)
+    ID              reduce using rule 3 (lista_expresiones -> expresion .)
+    FOR             reduce using rule 3 (lista_expresiones -> expresion .)
+    WHILE           reduce using rule 3 (lista_expresiones -> expresion .)
+    IF              reduce using rule 3 (lista_expresiones -> expresion .)
+    NUMERO          reduce using rule 3 (lista_expresiones -> expresion .)
+    $end            reduce using rule 3 (lista_expresiones -> expresion .)
+    MAS             shift and go to state 12
+    MENOS           shift and go to state 13
+
+
+state 4
+
+    (4) expresion -> TIPO . ID PUNTOYCOMA
+    (5) expresion -> TIPO . ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+
+    ID              shift and go to state 14
+
+
+state 5
+
+    (8) expresion -> ID . IGUAL expresion PUNTOYCOMA
+    (14) termino -> ID .
+
+    IGUAL           shift and go to state 15
+    MAS             reduce using rule 14 (termino -> ID .)
+    MENOS           reduce using rule 14 (termino -> ID .)
+    TIPO            reduce using rule 14 (termino -> ID .)
+    ID              reduce using rule 14 (termino -> ID .)
+    FOR             reduce using rule 14 (termino -> ID .)
+    WHILE           reduce using rule 14 (termino -> ID .)
+    IF              reduce using rule 14 (termino -> ID .)
+    NUMERO          reduce using rule 14 (termino -> ID .)
+    $end            reduce using rule 14 (termino -> ID .)
+    PUNTOYCOMA      reduce using rule 14 (termino -> ID .)
+
+
+state 6
+
+    (13) termino -> NUMERO .
+
+    MAS             reduce using rule 13 (termino -> NUMERO .)
+    MENOS           reduce using rule 13 (termino -> NUMERO .)
+    TIPO            reduce using rule 13 (termino -> NUMERO .)
+    ID              reduce using rule 13 (termino -> NUMERO .)
+    FOR             reduce using rule 13 (termino -> NUMERO .)
+    WHILE           reduce using rule 13 (termino -> NUMERO .)
+    IF              reduce using rule 13 (termino -> NUMERO .)
+    NUMERO          reduce using rule 13 (termino -> NUMERO .)
+    $end            reduce using rule 13 (termino -> NUMERO .)
+    PUNTOYCOMA      reduce using rule 13 (termino -> NUMERO .)
+
+
+state 7
+
+    (9) expresion -> termino .
+
+    MAS             reduce using rule 9 (expresion -> termino .)
+    MENOS           reduce using rule 9 (expresion -> termino .)
+    TIPO            reduce using rule 9 (expresion -> termino .)
+    ID              reduce using rule 9 (expresion -> termino .)
+    FOR             reduce using rule 9 (expresion -> termino .)
+    WHILE           reduce using rule 9 (expresion -> termino .)
+    IF              reduce using rule 9 (expresion -> termino .)
+    NUMERO          reduce using rule 9 (expresion -> termino .)
+    $end            reduce using rule 9 (expresion -> termino .)
+    PUNTOYCOMA      reduce using rule 9 (expresion -> termino .)
+
+
+state 8
+
+    (10) expresion -> FOR . ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 16
+
+
+state 9
+
+    (11) expresion -> WHILE . ID THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 17
+
+
+state 10
+
+    (12) expresion -> IF . ID THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 18
+
+
+state 11
+
+    (2) lista_expresiones -> lista_expresiones expresion .
+    (6) expresion -> expresion . MAS termino
+    (7) expresion -> expresion . MENOS termino
+
+    TIPO            reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    ID              reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    FOR             reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    WHILE           reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    IF              reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    NUMERO          reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    $end            reduce using rule 2 (lista_expresiones -> lista_expresiones expresion .)
+    MAS             shift and go to state 12
+    MENOS           shift and go to state 13
+
+
+state 12
+
+    (6) expresion -> expresion MAS . termino
+    (13) termino -> . NUMERO
+    (14) termino -> . ID
+
+    NUMERO          shift and go to state 6
+    ID              shift and go to state 20
+
+    termino                        shift and go to state 19
+
+state 13
+
+    (7) expresion -> expresion MENOS . termino
+    (13) termino -> . NUMERO
+    (14) termino -> . ID
+
+    NUMERO          shift and go to state 6
+    ID              shift and go to state 20
+
+    termino                        shift and go to state 21
+
+state 14
+
+    (4) expresion -> TIPO ID . PUNTOYCOMA
+    (5) expresion -> TIPO ID . CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 22
+    CORCHETE_IZQ    shift and go to state 23
+
+
+state 15
+
+    (8) expresion -> ID IGUAL . expresion PUNTOYCOMA
+    (4) expresion -> . TIPO ID PUNTOYCOMA
+    (5) expresion -> . TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA
+    (6) expresion -> . expresion MAS termino
+    (7) expresion -> . expresion MENOS termino
+    (8) expresion -> . ID IGUAL expresion PUNTOYCOMA
+    (9) expresion -> . termino
+    (10) expresion -> . FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+    (11) expresion -> . WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (12) expresion -> . IF ID THEN ID IGUAL NUMERO PUNTOYCOMA
+    (13) termino -> . NUMERO
+    (14) termino -> . ID
+
+    TIPO            shift and go to state 4
+    ID              shift and go to state 5
+    FOR             shift and go to state 8
+    WHILE           shift and go to state 9
+    IF              shift and go to state 10
+    NUMERO          shift and go to state 6
+
+    expresion                      shift and go to state 24
+    termino                        shift and go to state 7
+
+state 16
+
+    (10) expresion -> FOR ID . IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    IGUAL           shift and go to state 25
+
+
+state 17
+
+    (11) expresion -> WHILE ID . THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    THEN            shift and go to state 26
+
+
+state 18
+
+    (12) expresion -> IF ID . THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    THEN            shift and go to state 27
+
+
+state 19
+
+    (6) expresion -> expresion MAS termino .
+
+    MAS             reduce using rule 6 (expresion -> expresion MAS termino .)
+    MENOS           reduce using rule 6 (expresion -> expresion MAS termino .)
+    TIPO            reduce using rule 6 (expresion -> expresion MAS termino .)
+    ID              reduce using rule 6 (expresion -> expresion MAS termino .)
+    FOR             reduce using rule 6 (expresion -> expresion MAS termino .)
+    WHILE           reduce using rule 6 (expresion -> expresion MAS termino .)
+    IF              reduce using rule 6 (expresion -> expresion MAS termino .)
+    NUMERO          reduce using rule 6 (expresion -> expresion MAS termino .)
+    $end            reduce using rule 6 (expresion -> expresion MAS termino .)
+    PUNTOYCOMA      reduce using rule 6 (expresion -> expresion MAS termino .)
+
+
+state 20
+
+    (14) termino -> ID .
+
+    MAS             reduce using rule 14 (termino -> ID .)
+    MENOS           reduce using rule 14 (termino -> ID .)
+    TIPO            reduce using rule 14 (termino -> ID .)
+    ID              reduce using rule 14 (termino -> ID .)
+    FOR             reduce using rule 14 (termino -> ID .)
+    WHILE           reduce using rule 14 (termino -> ID .)
+    IF              reduce using rule 14 (termino -> ID .)
+    NUMERO          reduce using rule 14 (termino -> ID .)
+    $end            reduce using rule 14 (termino -> ID .)
+    PUNTOYCOMA      reduce using rule 14 (termino -> ID .)
+
+
+state 21
+
+    (7) expresion -> expresion MENOS termino .
+
+    MAS             reduce using rule 7 (expresion -> expresion MENOS termino .)
+    MENOS           reduce using rule 7 (expresion -> expresion MENOS termino .)
+    TIPO            reduce using rule 7 (expresion -> expresion MENOS termino .)
+    ID              reduce using rule 7 (expresion -> expresion MENOS termino .)
+    FOR             reduce using rule 7 (expresion -> expresion MENOS termino .)
+    WHILE           reduce using rule 7 (expresion -> expresion MENOS termino .)
+    IF              reduce using rule 7 (expresion -> expresion MENOS termino .)
+    NUMERO          reduce using rule 7 (expresion -> expresion MENOS termino .)
+    $end            reduce using rule 7 (expresion -> expresion MENOS termino .)
+    PUNTOYCOMA      reduce using rule 7 (expresion -> expresion MENOS termino .)
+
+
+state 22
+
+    (4) expresion -> TIPO ID PUNTOYCOMA .
+
+    MAS             reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    MENOS           reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    TIPO            reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    ID              reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    FOR             reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    WHILE           reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    IF              reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    NUMERO          reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    $end            reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 4 (expresion -> TIPO ID PUNTOYCOMA .)
+
+
+state 23
+
+    (5) expresion -> TIPO ID CORCHETE_IZQ . NUMERO CORCHETE_DER PUNTOYCOMA
+
+    NUMERO          shift and go to state 28
+
+
+state 24
+
+    (8) expresion -> ID IGUAL expresion . PUNTOYCOMA
+    (6) expresion -> expresion . MAS termino
+    (7) expresion -> expresion . MENOS termino
+
+    PUNTOYCOMA      shift and go to state 29
+    MAS             shift and go to state 12
+    MENOS           shift and go to state 13
+
+
+state 25
+
+    (10) expresion -> FOR ID IGUAL . NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    NUMERO          shift and go to state 30
+
+
+state 26
+
+    (11) expresion -> WHILE ID THEN . ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 31
+
+
+state 27
+
+    (12) expresion -> IF ID THEN . ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 32
+
+
+state 28
+
+    (5) expresion -> TIPO ID CORCHETE_IZQ NUMERO . CORCHETE_DER PUNTOYCOMA
+
+    CORCHETE_DER    shift and go to state 33
+
+
+state 29
+
+    (8) expresion -> ID IGUAL expresion PUNTOYCOMA .
+
+    MAS             reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    MENOS           reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    TIPO            reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    ID              reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    FOR             reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    WHILE           reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    IF              reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    NUMERO          reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    $end            reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 8 (expresion -> ID IGUAL expresion PUNTOYCOMA .)
+
+
+state 30
+
+    (10) expresion -> FOR ID IGUAL NUMERO . TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    TO              shift and go to state 34
+
+
+state 31
+
+    (11) expresion -> WHILE ID THEN ID . IGUAL NUMERO PUNTOYCOMA
+
+    IGUAL           shift and go to state 35
+
+
+state 32
+
+    (12) expresion -> IF ID THEN ID . IGUAL NUMERO PUNTOYCOMA
+
+    IGUAL           shift and go to state 36
+
+
+state 33
+
+    (5) expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 37
+
+
+state 34
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO . NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    NUMERO          shift and go to state 38
+
+
+state 35
+
+    (11) expresion -> WHILE ID THEN ID IGUAL . NUMERO PUNTOYCOMA
+
+    NUMERO          shift and go to state 39
+
+
+state 36
+
+    (12) expresion -> IF ID THEN ID IGUAL . NUMERO PUNTOYCOMA
+
+    NUMERO          shift and go to state 40
+
+
+state 37
+
+    (5) expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .
+
+    MAS             reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    MENOS           reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    TIPO            reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    ID              reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    FOR             reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    WHILE           reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    IF              reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    NUMERO          reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    $end            reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 5 (expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA .)
+
+
+state 38
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO . THEN ID IGUAL NUMERO PUNTOYCOMA
+
+    THEN            shift and go to state 41
+
+
+state 39
+
+    (11) expresion -> WHILE ID THEN ID IGUAL NUMERO . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 42
+
+
+state 40
+
+    (12) expresion -> IF ID THEN ID IGUAL NUMERO . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 43
+
+
+state 41
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN . ID IGUAL NUMERO PUNTOYCOMA
+
+    ID              shift and go to state 44
+
+
+state 42
+
+    (11) expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .
+
+    MAS             reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    MENOS           reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    TIPO            reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    ID              reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    FOR             reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    WHILE           reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    IF              reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    NUMERO          reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    $end            reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 11 (expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+
+
+state 43
+
+    (12) expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .
+
+    MAS             reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    MENOS           reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    TIPO            reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    ID              reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    FOR             reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    WHILE           reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    IF              reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    NUMERO          reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    $end            reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 12 (expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA .)
+
+
+state 44
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID . IGUAL NUMERO PUNTOYCOMA
+
+    IGUAL           shift and go to state 45
+
+
+state 45
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL . NUMERO PUNTOYCOMA
+
+    NUMERO          shift and go to state 46
+
+
+state 46
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 47
+
+
+state 47
+
+    (10) expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .
+
+    MAS             reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    MENOS           reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    TIPO            reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    ID              reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    FOR             reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    WHILE           reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    IF              reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    NUMERO          reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    $end            reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+    PUNTOYCOMA      reduce using rule 10 (expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA .)
+

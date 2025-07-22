@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'inicioCORCHETE_DER CORCHETE_IZQ ID MAS MENOS NUMERO PUNTOYCOMA TIPOinicio : lista_expresioneslista_expresiones : lista_expresiones expresionlista_expresiones : expresionexpresion : TIPO ID PUNTOYCOMAexpresion : TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMAexpresion : expresion MAS terminoexpresion : expresion MENOS terminoexpresion : terminotermino : NUMEROtermino : ID'
+_lr_signature = 'inicioCORCHETE_DER CORCHETE_IZQ FOR ID IF IGUAL MAS MENOS NUMERO PUNTOYCOMA THEN TIPO TO WHILEinicio : lista_expresioneslista_expresiones : lista_expresiones expresionlista_expresiones : expresionexpresion : TIPO ID PUNTOYCOMAexpresion : TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMAexpresion : expresion MAS terminoexpresion : expresion MENOS terminoexpresion : ID IGUAL expresion PUNTOYCOMAexpresion : terminoexpresion : FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMAexpresion : WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMAexpresion : IF ID THEN ID IGUAL NUMERO PUNTOYCOMAtermino : NUMEROtermino : ID'
     
-_lr_action_items = {'TIPO':([0,2,3,5,6,7,8,12,13,14,18,],[4,4,-3,-10,-9,-8,-2,-6,-7,-4,-5,]),'NUMERO':([0,2,3,5,6,7,8,9,10,12,13,14,15,18,],[6,6,-3,-10,-9,-8,-2,6,6,-6,-7,-4,16,-5,]),'ID':([0,2,3,4,5,6,7,8,9,10,12,13,14,18,],[5,5,-3,11,-10,-9,-8,-2,5,5,-6,-7,-4,-5,]),'$end':([1,2,3,5,6,7,8,12,13,14,18,],[0,-1,-3,-10,-9,-8,-2,-6,-7,-4,-5,]),'MAS':([3,5,6,7,8,12,13,14,18,],[9,-10,-9,-8,9,-6,-7,-4,-5,]),'MENOS':([3,5,6,7,8,12,13,14,18,],[10,-10,-9,-8,10,-6,-7,-4,-5,]),'PUNTOYCOMA':([11,17,],[14,18,]),'CORCHETE_IZQ':([11,],[15,]),'CORCHETE_DER':([16,],[17,]),}
+_lr_action_items = {'TIPO':([0,2,3,5,6,7,11,15,19,20,21,22,29,37,42,43,47,],[4,4,-3,-14,-13,-9,-2,4,-6,-14,-7,-4,-8,-5,-11,-12,-10,]),'ID':([0,2,3,4,5,6,7,8,9,10,11,12,13,15,19,20,21,22,26,27,29,37,41,42,43,47,],[5,5,-3,14,-14,-13,-9,16,17,18,-2,20,20,5,-6,-14,-7,-4,31,32,-8,-5,44,-11,-12,-10,]),'FOR':([0,2,3,5,6,7,11,15,19,20,21,22,29,37,42,43,47,],[8,8,-3,-14,-13,-9,-2,8,-6,-14,-7,-4,-8,-5,-11,-12,-10,]),'WHILE':([0,2,3,5,6,7,11,15,19,20,21,22,29,37,42,43,47,],[9,9,-3,-14,-13,-9,-2,9,-6,-14,-7,-4,-8,-5,-11,-12,-10,]),'IF':([0,2,3,5,6,7,11,15,19,20,21,22,29,37,42,43,47,],[10,10,-3,-14,-13,-9,-2,10,-6,-14,-7,-4,-8,-5,-11,-12,-10,]),'NUMERO':([0,2,3,5,6,7,11,12,13,15,19,20,21,22,23,25,29,34,35,36,37,42,43,45,47,],[6,6,-3,-14,-13,-9,-2,6,6,6,-6,-14,-7,-4,28,30,-8,38,39,40,-5,-11,-12,46,-10,]),'$end':([1,2,3,5,6,7,11,19,20,21,22,29,37,42,43,47,],[0,-1,-3,-14,-13,-9,-2,-6,-14,-7,-4,-8,-5,-11,-12,-10,]),'MAS':([3,5,6,7,11,19,20,21,22,24,29,37,42,43,47,],[12,-14,-13,-9,12,-6,-14,-7,-4,12,-8,-5,-11,-12,-10,]),'MENOS':([3,5,6,7,11,19,20,21,22,24,29,37,42,43,47,],[13,-14,-13,-9,13,-6,-14,-7,-4,13,-8,-5,-11,-12,-10,]),'IGUAL':([5,16,31,32,44,],[15,25,35,36,45,]),'PUNTOYCOMA':([5,6,7,14,19,20,21,22,24,29,33,37,39,40,42,43,46,47,],[-14,-13,-9,22,-6,-14,-7,-4,29,-8,37,-5,42,43,-11,-12,47,-10,]),'CORCHETE_IZQ':([14,],[23,]),'THEN':([17,18,38,],[26,27,41,]),'CORCHETE_DER':([28,],[33,]),'TO':([30,],[34,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'inicio':([0,],[1,]),'lista_expresiones':([0,],[2,]),'expresion':([0,2,],[3,8,]),'termino':([0,2,9,10,],[7,7,12,13,]),}
+_lr_goto_items = {'inicio':([0,],[1,]),'lista_expresiones':([0,],[2,]),'expresion':([0,2,15,],[3,11,24,]),'termino':([0,2,12,13,15,],[7,7,19,21,7,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,14 +27,18 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> inicio","S'",1,None,None,None),
-  ('inicio -> lista_expresiones','inicio',1,'p_inicio','analizador_sintactico.py',8),
-  ('lista_expresiones -> lista_expresiones expresion','lista_expresiones',2,'p_lista_expresiones_multiple','analizador_sintactico.py',12),
-  ('lista_expresiones -> expresion','lista_expresiones',1,'p_lista_expresiones_una','analizador_sintactico.py',16),
-  ('expresion -> TIPO ID PUNTOYCOMA','expresion',3,'p_declaracion_variable','analizador_sintactico.py',31),
-  ('expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA','expresion',6,'p_declaracion_arreglo','analizador_sintactico.py',40),
-  ('expresion -> expresion MAS termino','expresion',3,'p_expresion_suma','analizador_sintactico.py',50),
-  ('expresion -> expresion MENOS termino','expresion',3,'p_expresion_resta','analizador_sintactico.py',57),
-  ('expresion -> termino','expresion',1,'p_expresion_termino','analizador_sintactico.py',64),
-  ('termino -> NUMERO','termino',1,'p_termino_numero','analizador_sintactico.py',69),
-  ('termino -> ID','termino',1,'p_termino_id','analizador_sintactico.py',74),
+  ('inicio -> lista_expresiones','inicio',1,'p_inicio','analizador_sintactico.py',14),
+  ('lista_expresiones -> lista_expresiones expresion','lista_expresiones',2,'p_lista_expresiones_multiple','analizador_sintactico.py',18),
+  ('lista_expresiones -> expresion','lista_expresiones',1,'p_lista_expresiones_una','analizador_sintactico.py',22),
+  ('expresion -> TIPO ID PUNTOYCOMA','expresion',3,'p_declaracion_variable','analizador_sintactico.py',37),
+  ('expresion -> TIPO ID CORCHETE_IZQ NUMERO CORCHETE_DER PUNTOYCOMA','expresion',6,'p_declaracion_arreglo','analizador_sintactico.py',46),
+  ('expresion -> expresion MAS termino','expresion',3,'p_expresion_suma','analizador_sintactico.py',56),
+  ('expresion -> expresion MENOS termino','expresion',3,'p_expresion_resta','analizador_sintactico.py',68),
+  ('expresion -> ID IGUAL expresion PUNTOYCOMA','expresion',4,'p_expresion_asignacion','analizador_sintactico.py',81),
+  ('expresion -> termino','expresion',1,'p_expresion_termino','analizador_sintactico.py',96),
+  ('expresion -> FOR ID IGUAL NUMERO TO NUMERO THEN ID IGUAL NUMERO PUNTOYCOMA','expresion',11,'p_expresion_for','analizador_sintactico.py',101),
+  ('expresion -> WHILE ID THEN ID IGUAL NUMERO PUNTOYCOMA','expresion',7,'p_expresion_while','analizador_sintactico.py',138),
+  ('expresion -> IF ID THEN ID IGUAL NUMERO PUNTOYCOMA','expresion',7,'p_expresion_if','analizador_sintactico.py',168),
+  ('termino -> NUMERO','termino',1,'p_termino_numero','analizador_sintactico.py',198),
+  ('termino -> ID','termino',1,'p_termino_id','analizador_sintactico.py',203),
 ]
