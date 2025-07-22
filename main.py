@@ -224,6 +224,32 @@ def generar_codigo_assembler(codigo_intermedio):
 
 
 
+def mostrar_tokens_usados(codigo):
+    import tkinter as tk
+    from tkinter import scrolledtext, Toplevel
+    from analizador_lexico import lexer  # asegúrate de importar el lexer
+
+    ventana = Toplevel()
+    ventana.title("🔤 Tokens Usados")
+    ventana.geometry("600x400")
+    area = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, font=("Courier", 10))
+
+    lexer.input(codigo)
+    tokens_encontrados = []
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        tokens_encontrados.append(f"{tok.type} ({tok.value}) en línea {tok.lineno}")
+
+    if tokens_encontrados:
+        for linea in tokens_encontrados:
+            area.insert(tk.END, linea + "\n")
+    else:
+        area.insert(tk.END, "(No se encontraron tokens válidos)\n")
+
+    area.config(state=tk.DISABLED)
+    area.pack(expand=True, fill="both")
 
 
 def mostrar_tabla_simbolos():
@@ -381,6 +407,11 @@ def mostrar_menu_principal():
 
     btn_ver_asm_ventana = tk.Button(ventana, text="📄 Ver Código Assembler en ventana", command=mostrar_ultimo_codigo_asm)
     btn_ver_asm_ventana.pack(pady=10)
+
+    btn_tokens = tk.Button(ventana, text="🔤 Ver Tokens Usados", command=lambda: mostrar_tokens_usados("int x; x = 5;"))
+    btn_tokens.pack(pady=10)
+
+
 
 root = tk.Tk()
 root.withdraw()
